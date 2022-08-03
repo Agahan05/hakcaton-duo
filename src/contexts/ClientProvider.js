@@ -1,5 +1,5 @@
 import React from "react";
-import { appleApi, phonesApi } from "../helpers/const";
+import { phonesApi } from "../helpers/const";
 
 export const ClientContext = React.createContext();
 
