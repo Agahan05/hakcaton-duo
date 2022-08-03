@@ -21,7 +21,7 @@ function AdminAddPages() {
 
   const handleSubmit = () => {
     const newPhons = {
-      name: name.tirm(),
+      name: name.trim(),
       brand: brand.trim(),
       price,
       year: year.trim(),
