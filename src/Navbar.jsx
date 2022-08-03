@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -66,7 +67,7 @@ const ResponsiveAppBar = () => {
                 textDecoration: "none",
               }}
             >
-              Apple
+              Mobi-Phone
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -125,15 +126,30 @@ const ResponsiveAppBar = () => {
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+              <Link className="navbar-link" to="/">
                 <Button
-                  key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
+                  Home
                 </Button>
-              ))}
+              </Link>
+              <Link className="navbar-link" to="/admin">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Admin
+                </Button>
+              </Link>
+              <Link className="navbar-link" to="/admin/add">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Add your product
+                </Button>
+              </Link>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>

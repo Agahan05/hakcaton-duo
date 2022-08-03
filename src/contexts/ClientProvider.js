@@ -19,9 +19,13 @@ function ClientProvider({ children }) {
   });
 
   const [searchWord, setSearchWord] = React.useState("");
+  const [filterByPrice, setFilterByPrice] = React.useState([0, 150000]);
+  const [minMax, setMinMax] = React.useState([0, 150000]);
 
   const getPhones = () => {
-    fetch(`${phonesApi}?q=${searchWord}`)
+    fetch(
+      `${phonesApi}?q=${searchWord}&price_gte=${filterByPrice[0]}&price_lte=${filterByPrice[1]}`
+    )
       .then((res) => res.json())
       .then((data) => {
         let action = {
@@ -32,9 +36,24 @@ function ClientProvider({ children }) {
       });
   };
 
+  const getPrices = () => {
+    fetch(phonesApi)
+      .then((res) => res.json())
+      .then((data) => {
+        data.sort((a, b) => a.price - b.price);
+        let max = data[data.length - 1].price;
+        let min = data[0].price;
+        setMinMax([min, max]);
+        setFilterByPrice([min, max]);
+      });
+  };
+
   const data = {
     phones: state.phones,
     getPhones,
+    setFilterByPrice,
+    minMax,
+    filterByPrice,
   };
 
   return (

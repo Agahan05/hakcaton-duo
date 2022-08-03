@@ -12,18 +12,26 @@ import {
 } from "@mui/material";
 
 function MainPage() {
-  const { phones, getPhones } = React.useContext(ClientContext);
+  const { phones, getPhones, filterByPrice, setFilterByPrice, minMax } =
+    React.useContext(ClientContext);
 
   React.useEffect(() => {
     getPhones();
-  }, []);
+  }, [filterByPrice]);
+
   return (
     <div className="main-page">
       <Container>
         <h2>Entire Catalog</h2>
         <div className="filter-block">
           <h4>Filtration by price</h4>
-          <Slider />
+          <Slider
+            max={minMax[1]}
+            min={minMax[0]}
+            valueLabelDisplay="auto"
+            value={filterByPrice}
+            onChange={(e, newValue) => setFilterByPrice(newValue)}
+          />
         </div>
         <div className="products">
           {phones.map((item) => (
