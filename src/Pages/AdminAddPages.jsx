@@ -23,7 +23,7 @@ function AdminAddPages() {
     const newPhons = {
       name: name.trim(),
       brand: brand.trim(),
-      price,
+      price: parseInt(price),
       year: year.trim(),
       picture: picture.trim(),
     };

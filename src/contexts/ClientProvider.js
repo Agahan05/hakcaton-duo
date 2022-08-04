@@ -22,11 +22,19 @@ function ClientProvider({ children }) {
   const [filterByPrice, setFilterByPrice] = React.useState([0, 150000]);
   const [minMax, setMinMax] = React.useState([0, 150000]);
 
+  const limit = 2;
+  const [pagesCount, setPagesCount] = React.useState(1);
+  const [currentPage, setCurrentPage] = React.useState(1);
+
   const getPhones = () => {
     fetch(
-      `${phonesApi}?q=${searchWord}&price_gte=${filterByPrice[0]}&price_lte=${filterByPrice[1]}`
+      `${phonesApi}?q=${searchWord}&price_gte=${filterByPrice[0]}&price_lte=${filterByPrice[1]}&_limit=${limit}&_page=${currentPage}`
     )
-      .then((res) => res.json())
+      .then((res) => {
+        let count = Math.ceil(res.headers.get("X-Total-Count") / limit);
+        setPagesCount(count);
+        return res.json();
+      })
       .then((data) => {
         let action = {
           type: "GET_PHONES",
@@ -48,12 +56,21 @@ function ClientProvider({ children }) {
       });
   };
 
+  React.useEffect(() => {
+    getPrices();
+  }, []);
+
   const data = {
     phones: state.phones,
     getPhones,
+    pagesCount,
+    currentPage,
+    searchWord,
     setFilterByPrice,
     minMax,
     filterByPrice,
+    setCurrentPage,
+    setSearchWord,
   };
 
   return (

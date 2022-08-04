@@ -12,12 +12,20 @@ import {
 } from "@mui/material";
 
 function MainPage() {
-  const { phones, getPhones, filterByPrice, setFilterByPrice, minMax } =
-    React.useContext(ClientContext);
+  const {
+    phones,
+    getPhones,
+    filterByPrice,
+    setFilterByPrice,
+    minMax,
+    pagesCount,
+    setCurrentPage,
+    currentPage,
+  } = React.useContext(ClientContext);
 
   React.useEffect(() => {
     getPhones();
-  }, [filterByPrice]);
+  }, [filterByPrice, currentPage]);
 
   return (
     <div className="main-page">
@@ -26,6 +34,10 @@ function MainPage() {
         <div className="filter-block">
           <h4>Filtration by price</h4>
           <Slider
+            sx={{
+              width: 400,
+              color: "black",
+            }}
             max={minMax[1]}
             min={minMax[0]}
             valueLabelDisplay="auto"
@@ -64,6 +76,14 @@ function MainPage() {
               </CardContent>
             </Card>
           ))}
+        </div>
+        <div className="pagination-block">
+          <Pagination
+            count={pagesCount}
+            variant="outlined"
+            shape="rounded"
+            onChange={(_, newValue) => setCurrentPage(newValue)}
+          />
         </div>
       </Container>
     </div>
