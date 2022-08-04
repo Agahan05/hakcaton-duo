@@ -176,7 +176,13 @@ const ResponsiveAppBar = () => {
             >
               LOGO
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                alignItems: "center",
+              }}
+            >
               <Link className="navbar-link" to="/">
                 <Button
                   onClick={handleCloseNavMenu}

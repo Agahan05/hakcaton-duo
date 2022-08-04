@@ -12,8 +12,9 @@
 .admin-add-pages button, .admin-edit-pages button{
   margin-top: 20px;
 }
-.navbar-link{
+.navbar-link, .search-bar{
   margin: 0 10px;
+  height: 100%;
 }
 a{
   color: unset;
