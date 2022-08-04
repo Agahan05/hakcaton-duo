@@ -22,7 +22,7 @@ function ClientProvider({ children }) {
   const [filterByPrice, setFilterByPrice] = React.useState([0, 150000]);
   const [minMax, setMinMax] = React.useState([0, 150000]);
 
-  const limit = 2;
+  const limit = 6;
   const [pagesCount, setPagesCount] = React.useState(1);
   const [currentPage, setCurrentPage] = React.useState(1);
 
