@@ -35,25 +35,25 @@ function MainPage() {
         </div>
         <div className="products">
           {phones.map((item) => (
-            <Card key={item.id} className="product-card">
+            <Card key={item.id} className="products-card">
               <CardMedia component="img" height={140} image={item.picture} />
               <CardContent>
                 <Typography
-                  className="product-card-title"
+                  className="products-card-title"
                   gutterBottom
                   variant="h5"
                   component="div"
                 >
                   {item.name}
                 </Typography>
-                <ul className="product-card-ul">
+                <ul className="products-card-ul">
                   <li>
                     <span>Brand:</span>
                     <span>{item.brand}</span>
                   </li>
                   <li>
                     <span>Price:</span>
-                    <span>{item.price}</span>
+                    <span>{item.price} $</span>
                   </li>
                   <li>
                     <span>Release date:</span>

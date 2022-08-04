@@ -76,7 +76,6 @@ function AdminEditPages() {
           <TextField
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            label="Year"
             variant="standard"
             type="date"
           />
