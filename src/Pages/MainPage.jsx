@@ -21,6 +21,7 @@ function MainPage() {
     pagesCount,
     setCurrentPage,
     currentPage,
+    addPhonesToBasket,
   } = React.useContext(ClientContext);
 
   React.useEffect(() => {
@@ -72,7 +73,12 @@ function MainPage() {
                     <span>{item.year}</span>
                   </li>
                 </ul>
-                <Button>Add to Basket</Button>
+                <Button
+                  onClick={() => addPhonesToBasket(item)}
+                  variant="outlined"
+                >
+                  Add to Basket
+                </Button>
               </CardContent>
             </Card>
           ))}
