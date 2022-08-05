@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,11 +9,11 @@ import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import HomeIcon from "@mui/icons-material/Home";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import SearchIcon from "@mui/icons-material/Search";
 import { ClientContext } from "./contexts/ClientProvider";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -65,18 +65,22 @@ const pages = [
   {
     name: "Home",
     path: "/",
+    icon: <HomeIcon />,
   },
   {
     name: "Admin",
     path: "/admin",
+    icon: <AdminPanelSettingsIcon />,
   },
   {
     name: "Add Product",
     path: "/admin/add",
+    icon: <AddBoxIcon />,
   },
   {
     name: "",
     path: "/basket",
+    icon: <LocalMall />,
   },
 ];
 
@@ -171,7 +175,7 @@ const ResponsiveAppBar = () => {
                 {pages.map((page) => (
                   <Link to={page.path} key={page.name}>
                     <MenuItem onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page.name}</Typography>
+                      <Typography textAlign="center">{page.icon}</Typography>
                     </MenuItem>
                   </Link>
                 ))}
@@ -209,6 +213,9 @@ const ResponsiveAppBar = () => {
                   to={page.path}
                   key={index + "today"}
                 >
+                  {page.name}
+                </Link>
+              ))}
               <Search className="search-bar">
                 <SearchIconWrapper>
                   <SearchIcon />
