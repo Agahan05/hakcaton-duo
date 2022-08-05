@@ -245,6 +245,7 @@ const ResponsiveAppBar = () => {
               </Box>
             </Box>
           </Toolbar>
+          <Box />
         </Container>
       </AppBar>
     </ThemeProvider>

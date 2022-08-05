@@ -47,7 +47,7 @@ function BasketPage() {
               <TableRow key={item.id}>
                 <TableCell>{item.name}</TableCell>
                 <TableCell>
-                  <img width={60} src="{item.photo}" alt="" />
+                  <img width={60} src={item.picture} alt="" />
                 </TableCell>
                 <TableCell>{item.price} $</TableCell>
                 <TableCell>{item.count}</TableCell>
