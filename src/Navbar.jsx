@@ -209,6 +209,9 @@ const ResponsiveAppBar = () => {
                   to={page.path}
                   key={index + "today"}
                 >
+                  {page.name}
+                </Link>
+              ))}
               <Search className="search-bar">
                 <SearchIconWrapper>
                   <SearchIcon />
@@ -238,6 +241,7 @@ const ResponsiveAppBar = () => {
               </Box>
             </Box>
           </Toolbar>
+          <Box />
         </Container>
       </AppBar>
     </ThemeProvider>
