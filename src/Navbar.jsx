@@ -18,6 +18,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ClientContext } from "./contexts/ClientProvider";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { LocalMall } from "@mui/icons-material";
+import { Badge } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -79,7 +81,7 @@ const pages = [
 ];
 
 const ResponsiveAppBar = () => {
-  const { setSearchWord, searchWord, getPhones } =
+  const { setSearchWord, searchWord, getPhones, basketCount } =
     React.useContext(ClientContext);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -207,14 +209,6 @@ const ResponsiveAppBar = () => {
                   to={page.path}
                   key={index + "today"}
                 >
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                    {page.name}
-                  </Button>
-                </Link>
-              ))}
               <Search className="search-bar">
                 <SearchIconWrapper>
                   <SearchIcon />
@@ -228,6 +222,20 @@ const ResponsiveAppBar = () => {
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
+              <Box sx={{ flexGrow: 1 }} />
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Link to="/basket">
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                  >
+                    <Badge badgeContent={basketCount} color="error">
+                      <LocalMall />
+                    </Badge>
+                  </IconButton>
+                </Link>
+              </Box>
             </Box>
           </Toolbar>
         </Container>

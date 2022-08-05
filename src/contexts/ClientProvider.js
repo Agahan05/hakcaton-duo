@@ -9,6 +9,16 @@ const reducer = (state, action) => {
       ...state,
       phones: action.payload,
     };
+  } else if (action.type === "GET_PHONES_FROM_BASKET") {
+    return {
+      ...state,
+      basketPhones: action.payload,
+    };
+  } else if (action.type === "GET_BASKET_COUNT") {
+    return {
+      ...state,
+      basketCount: action.payload,
+    };
   }
   return state;
 };
@@ -16,6 +26,11 @@ const reducer = (state, action) => {
 function ClientProvider({ children }) {
   const [state, dispatch] = React.useReducer(reducer, {
     phones: [],
+    basketPhones: {
+      products: [],
+      totalPrice: 0,
+    },
+    basketCount: 0,
   });
 
   const [searchWord, setSearchWord] = React.useState("");
@@ -56,8 +71,56 @@ function ClientProvider({ children }) {
       });
   };
 
+  // ! Basket
+
+  const addPhonesToBasket = (phone) => {
+    let basket = JSON.parse(localStorage.getItem("basket"));
+    if (!basket) {
+      basket = {
+        totalPrice: 0,
+        products: [],
+      };
+    }
+    let phoneToBasket = {
+      ...phone,
+      count: 1,
+      subPrice: phone.price,
+    };
+
+    let check = basket.products.find((item) => {
+      return item.id == -phoneToBasket.id;
+    });
+    if (check) {
+      basket.products = basket.products.map((item) => {
+        if (item.id === phoneToBasket.id) {
+          item.count++;
+          item.subPrice = item.count * item.price;
+          return item;
+        }
+        return item;
+      });
+    } else {
+      basket.products.push(phoneToBasket);
+    }
+    basket.totalPrice = basket.products.reduce((prev, item) => {
+      return prev + item.subPrice;
+    }, 0);
+    localStorage.setItem("basket", JSON.stringify(basket));
+    // getBasketCount();
+  };
+
+  const getPhonesFromBasket = () => {
+    let basket = JSON.parse(localStorage.getItem("basket"));
+    let action = {
+      type: "GET_PHONES_FROM_BASKET",
+      payload: basket,
+    };
+    dispatch(action);
+  };
+
   React.useEffect(() => {
     getPrices();
+    // getBasketCount();
   }, []);
 
   const data = {
@@ -66,11 +129,15 @@ function ClientProvider({ children }) {
     pagesCount,
     currentPage,
     searchWord,
+    basketCount: state.basketCount,
+    basketPhones: state.basketPhones,
     setFilterByPrice,
     minMax,
     filterByPrice,
     setCurrentPage,
     setSearchWord,
+    addPhonesToBasket,
+    getPhonesFromBasket,
   };
 
   return (
