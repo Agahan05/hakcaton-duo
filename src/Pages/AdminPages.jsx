@@ -37,7 +37,7 @@ function AdminPages() {
           </TableHead>
           <TableBody>
             {phones.map((item, index) => (
-              <TableRow key={item.id}>
+              <TableRow key={item.id + "phones"}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{item.name}</TableCell>
                 <TableCell>{item.brand}</TableCell>
