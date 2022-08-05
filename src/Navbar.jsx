@@ -24,9 +24,9 @@ import { Badge } from "@mui/material";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  // backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    // backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -61,8 +61,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = [
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: "Admin",
+    path: "/admin",
+  },
+  {
+    name: "Add Product",
+    path: "/admin/add",
+  },
+  {
+    name: "",
+    path: "/basket",
+  },
+];
 
 const ResponsiveAppBar = () => {
   const { setSearchWord, searchWord, getPhones, basketCount } =
@@ -153,9 +169,11 @@ const ResponsiveAppBar = () => {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
+                  <Link to={page.path} key={page.name}>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page.name}</Typography>
+                    </MenuItem>
+                  </Link>
                 ))}
               </Menu>
             </Box>
@@ -185,30 +203,12 @@ const ResponsiveAppBar = () => {
                 alignItems: "center",
               }}
             >
-              <Link className="navbar-link" to="/">
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+              {pages.map((page, index) => (
+                <Link
+                  className="navbar-link"
+                  to={page.path}
+                  key={index + "today"}
                 >
-                  Home
-                </Button>
-              </Link>
-              <Link className="navbar-link" to="/admin">
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  Admin
-                </Button>
-              </Link>
-              <Link className="navbar-link" to="/admin/add">
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  Add your product
-                </Button>
-              </Link>
               <Search className="search-bar">
                 <SearchIconWrapper>
                   <SearchIcon />
@@ -236,36 +236,6 @@ const ResponsiveAppBar = () => {
                   </IconButton>
                 </Link>
               </Box>
-            </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
             </Box>
           </Toolbar>
         </Container>
